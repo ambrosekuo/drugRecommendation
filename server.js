@@ -23,11 +23,11 @@ app.get('/api/getData', (req,res) => {
 
 if (process.env.NODE_ENV === 'production') {
   // Server any static iles
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static(path.join(__dirname, 'build')));
 
   // Handle React routing, return all requests to React app
   app.get('*', (req,res) => {
-    res.sendFile(path.join(__dirname, 'client/build',
+    res.sendFile(path.join(__dirname, 'build',
     'index.html'));
   });
 }
