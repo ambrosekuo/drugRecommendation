@@ -1,33 +1,115 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+  background: silver;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-bottom: 10px;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+ul {
+  list-style: none;
+}
+
+.stuff {
+  position: relative;
+  float: left;
+}
+
+.Symptom-list {
+  position: relative;
+  float: left;
+  width: 50vw;
+}
+
+.Checked-component {
+  width: 40vw;
+  text-align:center;
+  position: relative;
+  float: left;
+  margin-left: 1vw;
+  display: block;
+}
+
+.Checked-component > h1 {
+  text-align: center;
+}
+
+.Checked-list {
+  float: left;  
+  position: relative;
+  width: 40vw;
+}
+
+.Checked-symptoms {
+  position: relative;
+  width: 100%;
+  font-size: 30px;
+  text-align: left;
+}
+
+.Drug-recommendations {
+  position: relative;
+  float: left;
+  width: 40%;
+  height: 40vh;
+  margin-left: 1vw;;
+  margin-top: 10vh;
+}
+
+.Drug-list {
+  font-size: 30px;
+  background: lightgrey;
+}
+
+.symptoms {
+  width: 100%;
+  padding: 1px;
+  height: 10vh;
+  text-decoration: none;
+  float: left;
+  position: relative;
+  border: 1px solid black;;
+  border-radius: 5px;
+}
+
+.Symptom-button {
+  text-align: left;
+  font-size: 30px;
+  background: white;
+  height: 100%;
+  width: 100%;
+}
+
+
+.Symptom-clicked {
+  background: lightgrey;
+}
+
+
+@media (max-width: 500px) {
+  .Symptom-list{
+    width: 100vw;
   }
-  to {
-    transform: rotate(360deg);
+  .symptoms {
+    width: 80%;
+  }
+  .Checked-component {
+    width: 80%;
+  }
+  .Drug-recommendations {
+    width: 80%;
   }
 }
