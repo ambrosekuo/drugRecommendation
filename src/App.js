@@ -14,7 +14,7 @@ class App extends Component {
     checked: [],
     drugObj: {},
     page: 0,
-    maxPages: '',
+    maxPages: ""
   };
 
   componentDidMount() {
@@ -42,6 +42,9 @@ class App extends Component {
     let drugObjList = {};
     data.forEach((row, i) => {
       if (i > 0 && row[1] != null) {
+        const drug = row[2];
+        drugObjList[drug] = [];
+
         // Skips first row
         // Symptoms in 2nd column of array
 
@@ -51,9 +54,14 @@ class App extends Component {
 
           a[i] = unformatSymptom.replace(/^\s+/, "").replace(/\s+$/, "");
         }); // Array of symptoms formatted
-        const drug = row[2];
-        drugObjList[drug] = rowSymptoms;
-        allSymptoms = [...allSymptoms, ...rowSymptoms];
+        //console.log(rowSymptoms);
+        let allSplitSymptoms = [];
+        rowSymptoms.forEach(symptoms => {
+          const splitSymptoms = symptoms.split("/");
+          drugObjList[drug].push([...splitSymptoms]);
+          allSplitSymptoms.push(...splitSymptoms);
+        });
+        allSymptoms = [...allSymptoms, ...allSplitSymptoms];
       }
     });
     // Removing duplicates
@@ -81,23 +89,31 @@ class App extends Component {
   checkIfDrug() {
     let checked = this.state.checked;
     let drugRecommended = this.state.drugRecommended;
-    for (let [drug, arr] of Object.entries(this.state.drugObjList)) {
+    for (let [drug, drugArr] of Object.entries(this.state.drugObjList)) {
       // Drug does not exist in array
       if (drugRecommended.indexOf(drug) === -1) {
         // Every symptom in drug exists in checked
-        if (arr.every(val => checked.indexOf(val) !== -1)) {
-          this.setState(state => {
-            state.drugRecommended = [...state.drugRecommended, drug];
-          });
-        }
+        drugArr.forEach(arr => {
+          if (arr.every(val => checked.indexOf(val) !== -1)) {
+            this.setState(state => {
+              state.drugRecommended = [...state.drugRecommended, drug];
+            });
+          }
+        });
       }
       // Drug added in, but checked requirements no longer met
       // A symptom in drug does not exists in checked
-      else if (!arr.every(val => checked.indexOf(val) !== -1)) {
-        this.setState(state => {
-          const newDrugsRecommended = state.drugRecommended;
-          newDrugsRecommended.splice(newDrugsRecommended.indexOf(drug), 1);
-          state.drugRecommended = [...newDrugsRecommended];
+      else {
+        drugArr.every(arr => {
+          if (!arr.every(val => checked.indexOf(val) !== -1)) {
+            this.setState(state => {
+              const newDrugsRecommended = state.drugRecommended;
+              newDrugsRecommended.splice(newDrugsRecommended.indexOf(drug), 1);
+              state.drugRecommended = [...newDrugsRecommended];
+            });
+            return false;
+          }
+          return true;
         });
       }
     }
@@ -121,11 +137,13 @@ class App extends Component {
   };
 
   movePage(action) {
-    if (action === 'back' && this.state.page > 0) {
-      this.setState({page: this.state.page-1})
-    }
-    else if (action === 'forward' && (this.state.page+1)*perPage < this.state.allSymptoms.length) { 
-      this.setState({page: this.state.page+1})
+    if (action === "back" && this.state.page > 0) {
+      this.setState({ page: this.state.page - 1 });
+    } else if (
+      action === "forward" &&
+      (this.state.page + 1) * perPage < this.state.allSymptoms.length
+    ) {
+      this.setState({ page: this.state.page + 1 });
     }
     this.setState({ state: this.state });
   }
@@ -181,15 +199,24 @@ class App extends Component {
             <h1> Do you have any of these symptoms?</h1>
             <ul>{symptomList}</ul>
             <div>
-              <button className="Page-nav-button" onClick={() => this.movePage("back")}>
+              <button
+                className="Page-nav-button"
+                onClick={() => this.movePage("back")}
+              >
                 {" "}
                 &lt;={" "}
               </button>
-              <button className="Page-nav-button" onClick={() => this.movePage("forward")}>
+              <button
+                className="Page-nav-button"
+                onClick={() => this.movePage("forward")}
+              >
                 {" "}
                 =>{" "}
               </button>
-              <h3> Page {this.state.page+1} of {this.state.maxPages} </h3>
+              <h3>
+                {" "}
+                Page {this.state.page + 1} of {this.state.maxPages}{" "}
+              </h3>
             </div>
           </div>
           <div className="Checked-component">

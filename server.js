@@ -21,7 +21,8 @@ app.get('/api/getData', (req,res) => {
   res.send(obj[0].data);
 });
 
-if (process.env.NODE_ENV === 'production') {
+
+
   // Server any static iles
   app.use(express.static(path.join(__dirname, 'build')));
 
@@ -30,7 +31,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'build',
     'index.html'));
   });
-}
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
