@@ -28,10 +28,48 @@ ul {
   float: left;
 }
 
+.Symptom-input {
+  font-size: 30px;
+  width: 80%;
+  background: rgb(233, 229, 229);
+  border: none;
+  height: 10vh;
+}
+.Search-bar{
+  width: 100%;
+}
+
+.Suggested-list {
+  margin-top: -10px;
+  margin-left: 10px;
+  position: absolute;
+  background: white;
+  z-index: 10;
+  width: 80%;
+}
+
+.Suggested-list-item {
+  margin: 5px;
+  z-index: 10;
+  border: black 1px solid;
+}
+
+.Suggested-list-item-button {
+  font-size: 25px;
+  background: rgba(170, 127, 127, 0.103);
+  width: 100%;
+  height: 100%;
+}
+
 .Symptom-list {
   position: relative;
   float: left;
   width: 50vw;
+}
+
+.Page-nav-button{
+  width: 50px;
+  height: 50px;
 }
 
 .Checked-component {
@@ -58,6 +96,13 @@ ul {
   width: 100%;
   font-size: 30px;
   text-align: left;
+}
+
+.Remove-checked{
+  color: black;
+  font-size: 30px;
+  background: white;
+  border-radius: 50px;
 }
 
 .Drug-recommendations {
