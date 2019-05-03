@@ -61,11 +61,7 @@ ul {
   height: 100%;
 }
 
-.Symptom-list {
-  position: relative;
-  float: left;
-  width: 50vw;
-}
+
 
 .Page-nav-button{
   width: 50px;
@@ -73,7 +69,7 @@ ul {
 }
 
 .Checked-component {
-  width: 40vw;
+  width: 30vw;
   text-align:center;
   position: relative;
   float: left;
@@ -108,7 +104,7 @@ ul {
 .Drug-recommendations {
   position: relative;
   float: left;
-  width: 40%;
+  width: 30%;
   height: 40vh;
   margin-left: 1vw;;
   margin-top: 10vh;
@@ -119,8 +115,19 @@ ul {
   background: lightgrey;
 }
 
-.symptoms {
+
+.Symptoms-component {
+  position: relative;
+  float: left;
+  width: 60vw;
+}
+
+.Symptoms-list {
   width: 100%;
+}
+
+.symptoms {
+  width: 40%;
   padding: 1px;
   height: 10vh;
   text-decoration: none;
@@ -131,6 +138,7 @@ ul {
 }
 
 .Symptom-button {
+  float: left;
   text-align: left;
   font-size: 30px;
   background: white;
@@ -145,16 +153,22 @@ ul {
 
 
 @media (max-width: 500px) {
-  .Symptom-list{
+  .Symptoms-component{
     width: 100vw;
   }
-  .symptoms {
-    width: 80%;
-  }
+
+
+
   .Checked-component {
     width: 80%;
   }
   .Drug-recommendations {
     width: 80%;
+  }
+}
+
+@media (max-width: 700px) {
+  .symptoms >button {
+    font-size: 20px;
   }
 }

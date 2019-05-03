@@ -251,7 +251,7 @@ class App extends Component {
         </header>
 
         <div>
-          <div className="Symptom-list">
+          <div className="Symptoms-component">
             <div className="Search-bar">
               <form onSubmit={e => e.preventDefault()}>
                 <h1> Search or click on symptoms list</h1>
@@ -265,7 +265,9 @@ class App extends Component {
               <ul className="Suggested-list">{suggestSearch}</ul>
             </div>
             <h1> Do you have any of these symptoms?</h1>
+            <div className="Symptoms-list">
             <ul>{symptomList}</ul>
+            </div>
             <div>
               <button
                 className="Page-nav-button"
