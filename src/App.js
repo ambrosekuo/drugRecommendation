@@ -72,7 +72,7 @@ class App extends Component {
     return [
       allSymptoms.filter((el, i, a) => {
         return a.indexOf(el) === i;
-      }),
+      }).sort(),
       drugObjList
     ];
   };
