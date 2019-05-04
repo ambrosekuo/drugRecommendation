@@ -247,7 +247,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1> Miranda's Recommendations </h1>
+          <h1> Over The Counter Drug Recommendations </h1>
         </header>
 
         <div>
