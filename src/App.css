@@ -15,6 +15,16 @@
   padding-bottom: 10px;
 }
 
+strong {
+  color:white;
+}
+.App-header > p {
+  width: 90%;
+  font-size: 15px;
+  color: grey;
+  text-align: right;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -28,22 +38,25 @@ ul {
   float: left;
 }
 
+
 .Symptom-input {
+  padding: 10px;
   font-size: 30px;
   width: 80%;
-  background: rgb(233, 229, 229);
+  background: rgb(228, 226, 226);
   border: none;
   height: 10vh;
+  border: 1px solid black;
 }
 .Search-bar{
   width: 100%;
 }
 
 .Suggested-list {
+  display: block;
   margin-top: -10px;
-  margin-left: 10px;
   position: absolute;
-  background: white;
+  background: rgba(255, 255, 255, 0.205);
   z-index: 10;
   width: 80%;
 }
@@ -56,7 +69,7 @@ ul {
 
 .Suggested-list-item-button {
   font-size: 25px;
-  background: rgba(170, 127, 127, 0.103);
+  background: rgb(248, 242, 242);
   width: 100%;
   height: 100%;
 }
@@ -92,6 +105,7 @@ ul {
   width: 100%;
   font-size: 30px;
   text-align: left;
+  margin-bottom: 5px;
 }
 
 .Remove-checked{
@@ -110,9 +124,11 @@ ul {
   margin-top: 10vh;
 }
 
-.Drug-list {
+.Drug-list-item {
   font-size: 30px;
   background: lightgrey;
+  border: 1px solid black;
+  margin-bottom: 5px;
 }
 
 
@@ -152,12 +168,10 @@ ul {
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 618px) {
   .Symptoms-component{
     width: 100vw;
   }
-
-
 
   .Checked-component {
     width: 80%;
@@ -170,5 +184,12 @@ ul {
 @media (max-width: 700px) {
   .symptoms >button {
     font-size: 20px;
+  }
+}
+
+@media (min-width: 700px) {
+  .Suggested-list {
+    margin-left: 20px;
+    width: 84%;
   }
 }

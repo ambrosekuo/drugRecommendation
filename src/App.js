@@ -18,13 +18,16 @@ class App extends Component {
     page: 0,
     maxPages: "",
     search: "",
-    suggestedSearch: []
+    suggestedSearch: [],
+    randomImg: '',
   };
 
   componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
+    this.callApi().then((response) => this.setState({state:this.state}));
+    /*this.callFlikrApi().then(res => { Get image based on drug title, but very random currently
+      this.setState({randomImg: res});
+    });
+    */
   }
 
   callApi = async () => {
@@ -40,6 +43,45 @@ class App extends Component {
     if (response.status !== 200) throw Error(response.message);
     return response;
   };
+
+  /* Taken from stackoverflow
+ https://stackoverflow.com/questions/6132796/how-to-make-a-jsonp-request-from-javascript-without-jquery 
+*/
+  jsonp(uri) {
+    return new Promise(function(resolve, reject) {
+      var id = "_" + Math.round(10000 * Math.random());
+      //var callbackName = 'jsonp_callback_' + id;
+      //jsonFlickrFeed is not defined[Learn More] photos_public.gne:1:1
+      var callbackName = "jsonFlickrFeed";
+      window[callbackName] = function(data) {
+        delete window[callbackName];
+        var ele = document.getElementById(id);
+        ele.parentNode.removeChild(ele);
+        resolve(data);
+      };
+
+      var src = uri + "&callback=" + callbackName;
+      var script = document.createElement("script");
+      script.src = src;
+      script.id = id;
+      script.addEventListener("error", reject);
+      (
+        document.getElementsByTagName("head")[0] ||
+        document.body ||
+        document.documentElement
+      ).appendChild(script);
+    });
+  }
+
+  callFlikrApi = async () => {
+    const url2 =
+      "http://api.flickr.com/services/feeds/photos_public.gne?tags=miralax&tagmode=all&format=json";
+    const response = await this.jsonp(url2);
+    console.log(response);
+    return response.items[1].media.m;
+  };
+
+  /********************* */
 
   parseData = data => {
     let allSymptoms = [];
@@ -70,9 +112,11 @@ class App extends Component {
     });
     // Removing duplicates
     return [
-      allSymptoms.filter((el, i, a) => {
-        return a.indexOf(el) === i;
-      }).sort(),
+      allSymptoms
+        .filter((el, i, a) => {
+          return a.indexOf(el) === i;
+        })
+        .sort(),
       drugObjList
     ];
   };
@@ -233,14 +277,20 @@ class App extends Component {
     ));
 
     let drugList = this.state.drugRecommended.map((drug, i, a) => (
-      <li className="Drug-list" key={this.state.drugRecommended[i]}>
+      <li className="Drug-list-item" key={this.state.drugRecommended[i]}>
         {drug}
       </li>
     ));
 
     let suggestSearch = this.state.suggestedSearch.map((symptom, i, a) => (
       <li className="Suggested-list-item" key={i}>
-        <button className="Suggested-list-item-button" onClick={(e)=> this.addToSelected(symptom)}> {symptom}</button>
+        <button
+          className="Suggested-list-item-button"
+          onClick={e => this.addToSelected(symptom)}
+        >
+          {" "}
+          {symptom}
+        </button>
       </li>
     ));
 
@@ -248,6 +298,12 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1> Over The Counter Drug Recommendations </h1>
+          <p>
+            Recommendations researched and compiled by:{" "}
+            <strong>Miranda Tseng </strong> <br />
+            Site design by: <strong> Ambrose Kuo</strong>
+          </p>
+          
         </header>
 
         <div>
@@ -258,6 +314,7 @@ class App extends Component {
                 <input
                   className="Symptom-input"
                   type="text"
+                  placeholder="Search for symptoms"
                   value={this.state.search}
                   onChange={e => this.suggestSearch(e)}
                 />
@@ -266,7 +323,7 @@ class App extends Component {
             </div>
             <h1> Do you have any of these symptoms?</h1>
             <div className="Symptoms-list">
-            <ul>{symptomList}</ul>
+              <ul>{symptomList}</ul>
             </div>
             <div>
               <button
